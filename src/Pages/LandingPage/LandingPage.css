@@ -1,0 +1,10 @@
+.LandingPage{
+    height: 100vh;
+    background-color: #050023;
+}
+
+.LandingPageLogo{
+    display: flex;
+    align-items: center;
+}
+
