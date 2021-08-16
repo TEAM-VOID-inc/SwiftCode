@@ -72,7 +72,8 @@ exports.index = async function (req, res) {
 // @access Public
 exports.store = async (req, res) => {
     try {
-        const userId = req.user._id;
+        const userId = req.body.id;
+        console.log(userId);
         const newEvent = new Event({...req.body, userId});
 
         const event = await newEvent.save();

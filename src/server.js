@@ -1,20 +1,24 @@
-require('dotenv').config();
+const express = require("express");
+const http = require("http");
+const axios = require("axios");
 
-const express = require('express');
+const index = require("./routes/index");
 const mongoose = require('mongoose');
 const cors = require('cors');
 const passport = require("passport");
 const path = require("path");
+const {getgfgdata} = require('./socket/socketgfg');
+const {getcodeforcesdata} = require('./socket/codeforces');
 
-// Setting up port
+//connection uri and port
 const connUri = process.env.MONGO_LOCAL_CONN_URL;
-let PORT = process.env.PORT || 3001;
+const port = process.env.PORT || 3001;
 
-
-// Creating express app and configuring middleware needed for authentication
 const app = express();
 
+
 app.use(cors());
+
 
 // for parsing application/json
 app.use(express.json());
@@ -30,12 +34,12 @@ app.set('view engine', 'jade');
 
 //Configure mongoose's promise to global promise
 mongoose.promise = global.Promise;
-mongoose.connect(connUri, { useNewUrlParser: true , useCreateIndex: true,  useUnifiedTopology: true });
+mongoose.connect(connUri, { useNewUrlParser: true , useCreateIndex: true,  useUnifiedTopology: true, useFindAndModify: true });
 
 const connection = mongoose.connection;
-connection.once('open', () => console.log('MongoDB --  database connection established successfully!'));
+connection.once('open', () => console.log('MongoDB connected sucessfully'));
 connection.on('error', (err) => {
-    console.log("MongoDB connection error. Please make sure MongoDB is running. " + err);
+    console.log("MongoDB connection error" + err);
     process.exit();
 });
 
@@ -49,5 +53,24 @@ require("./middlewares/jwt")(passport);
 require('./routes/index')(app);
 
 
-//=== 5 - START SERVER
-app.listen(PORT, () => console.log('Server running on http://localhost:'+PORT+'/'));
+//Socket building
+const server = http.createServer(app);
+
+const io = require("socket.io")(server, {
+    cors: {
+        origin: "*",
+    },
+});
+
+
+io.on("connection", socket => {
+    console.log("New client connected"), 
+
+    getgfgdata(socket);
+    getcodeforcesdata(socket);
+
+    socket.on("disconnect", () => console.log("CLIENT DISCONNECT"));
+});
+
+
+server.listen(port, () => console.log(`Listening on port ${port}`));

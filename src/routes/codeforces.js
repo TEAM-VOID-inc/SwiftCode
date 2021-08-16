@@ -5,9 +5,9 @@ const {check} = require('express-validator');
 
 const codeforces = require('../controllers/codeforces');
 
-router.get('/', codeforces.gettopic);
+router.get('/', codeforces.getContent);
 
-
+router.get('/:id', codeforces.gettopicbyid);
 
 
 module.exports = router;

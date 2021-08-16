@@ -19,7 +19,9 @@ exports.getquestions = async ({id}) => {
             const questionTitle = $(question[1]).find("a").text().trim();
             const questionLink = $(question[1]).find("a").attr('href');
             const questionDifficulty = parseInt($(question[3]).text());
-            const tempquestion = {id, questionTitle, questionLink, questionDifficulty};
+            const done = false;
+
+            const tempquestion = {id, questionTitle, questionLink, questionDifficulty, done};
             questions.push(tempquestion);
         })
         return questions;

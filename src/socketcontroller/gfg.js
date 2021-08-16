@@ -4,9 +4,8 @@ const User = require('../models/user');
 const GFGTopic = require('../models/gfgTopic');
 
 
-exports.getGFG = async (req, res) => {
+exports.getGFG = async ({id}) => {
     try {
-        const id= req.params.id;
         const user = await User.findById(id);
 
         if(user.GFGid === undefined || user.GFGid === null)
@@ -73,51 +72,10 @@ exports.getGFG = async (req, res) => {
             return a.position - b.position;
         });
 
-        res.status(201).json(questionsdone);
+        return questionsdone;
 
     } catch (error) {
-        res.status(500).json({success: false, message: error.message})
+        console.log("error", erorr);
     }
 }
 
-
-exports.addGFG= async (req, res) => {
-    try {
-        const {title, link, topic} = req.body;
-
-        const linkcheck = await GFGmodel.findOne({link});
-
-        if(linkcheck)
-            return res.status(401).json({message: "Question already Exits"});
-        
-        const newQuestion = new GFGmodel({title, link, topic});
-
-        await newQuestion.save();
-
-        res.status(201).json({message: "Question Sucessfully Added"});
-
-    } catch (error) {
-        res.status(500).json({success: false, message: error.message})
-    }
-}
-
-
-exports.gfgTopicAdd = async (req, res) => {
-    try {
-        const {topic} =  req.body;
-
-        const topiccheck = await GFGTopic.findOne({topic});
-
-        if(topiccheck)
-            return res.status(401).json({message: "Topic Already Exists"});
-
-        const newTopic = new GFGTopic({topic});
-
-        await newTopic.save();
-
-        res.status(201).json({message: "Topic Sucessfully Added"});
-
-    } catch (error) {
-        res.status(500).json({success: false, message: error.message})
-    }
-}

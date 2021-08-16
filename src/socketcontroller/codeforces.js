@@ -1,28 +1,15 @@
-const {getContent, getquestions} = require('../utils/codeforcesextract');
+const {sgetquestions} = require('../utils/codeforcesextract');
 const axios = require('axios');
 const User = require('../models/user');
 
 
-exports.getContent = async(req, res) => {
+exports.gettopicbyid = async ({id, pageid}) => {
     try {
-        const content = await getContent();
-        res.status(200).json({content});
-    } catch (error) {
-        res.status(500).json({success: false, message: error.message})
-    }
-
-}
-
-
-exports.gettopicbyid = async (req, res) => {
-    try {
-        const id= req.params.id;
         const user = await User.findById(id);
 
         if(user.Codeforcesid=== undefined || user.Codeforcesid === null)
             return res.status(400).json({message: 'Codeforcesid'});
 
-        const pageid = req.body.pageid;
 
         const questions = await getquestions({id: parseInt(pageid)})
         
@@ -41,11 +28,9 @@ exports.gettopicbyid = async (req, res) => {
             })
         })
 
-        res.status(200).json({questions, user});
+        return questions;
 
     } catch (error) {
-        res.status(500).json({success: false, message: error.message})
+        console.log("error", error);
     }
 }
-
-

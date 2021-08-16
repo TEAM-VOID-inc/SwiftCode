@@ -3,6 +3,7 @@ const user = require('./user');
 const event = require('./event');
 const gfg = require('./gfg');
 const codeforces = require('./codeforces');
+const blog = require('./blog');
 
 const authenticate = require('../middlewares/authenticate');
 
@@ -12,8 +13,9 @@ module.exports = app => {
     });
 
     app.use('/auth', auth);
-    app.use('/user', authenticate, user);
+    app.use('/user',authenticate ,  user);
     app.use('/event',  event);
-    app.use('/gfg', authenticate ,gfg);
-    app.use('/codeforces', codeforces);
+    app.use('/gfg', authenticate , gfg);
+    app.use('/codeforces',authenticate , codeforces);
+    app.use('/blog', blog);
 };

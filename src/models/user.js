@@ -5,8 +5,10 @@ const crypto = require('crypto');
 const Token = require('./token');
 require('dotenv').config();
 
+const Schema = mongoose.Schema;
 
-const UserSchema = new mongoose.Schema({
+
+const UserSchema = new Schema({
     email : {
         type: String,
         unique: true,
@@ -39,6 +41,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default: null,
     },
+    blogs: [{
+        type: Schema.Types.ObjectId,
+        ref: 'blog'
+    }],
     resetPasswordToken : {
         type: String,
         required: false,
