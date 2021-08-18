@@ -45,6 +45,14 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'blog'
     }],
+    vedios: [{
+        type: Schema.Types.ObjectId,
+        ref: 'vedio'
+    }],
+    playlists: [{
+        type: Schema.Types.ObjectId,
+        ref: 'playlist'
+    }],
     resetPasswordToken : {
         type: String,
         required: false,
