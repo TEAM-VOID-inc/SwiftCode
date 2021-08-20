@@ -12,7 +12,7 @@ function LandingPage() {
 
                 <div className="LandingPageHero">
                     <div className="LandingPageContent">
-                        <Typography fs="50px" color="white" >Start Your Code in Easy Way</Typography>
+                       <Typography fs="50px" color="white" >Start Your Code in Easy Way</Typography>
                     </div>
                     <div className="LandingPageImg">
                         <Laptop></Laptop>
