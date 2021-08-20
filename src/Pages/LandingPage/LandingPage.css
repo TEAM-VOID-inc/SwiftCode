@@ -1,10 +1,19 @@
 .LandingPage{
-    height: 100vh;
-    background-color: #050023;
+        margin: 40px 0px;
 }
 
-.LandingPageLogo{
+
+.LandingPageHero{
+    margin-top: 150px;
     display: flex;
     align-items: center;
+    justify-content:space-between;
 }
 
+.LandingPageContent{
+    flex:1;
+}
+
+.LandingPageImg{
+    flex:1;
+}
