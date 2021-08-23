@@ -6,12 +6,18 @@ const useStyles = makeStyles({
   root: props =>({
     display: 'flex',
     flexWrap: 'wrap',
+    // margin: props.mr,
+    // padding: props.pr,
   }),
   paperRoot: props => ({
+    display: 'flex',
+    flexWrap: 'wrap',
     border: props.bd,
     borderRadius: props.br,
+    margin: props.mr,
     padding: props.p,
     backgroundColor:props.bg,
+    boxShadow: props.bs,
   }),
 
 });
