@@ -41,7 +41,7 @@ const UserSchema = new Schema({
         type: String,
         default: null,
     },
-    leetcodeid: {
+    codechefid: {
         type: String,
         default: null,
     },

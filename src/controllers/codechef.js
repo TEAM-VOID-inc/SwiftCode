@@ -1,4 +1,4 @@
-const {getContent, getquestions} = require('../utils/codeforcesextract');
+const {getContent, getquestions} = require('../utils/codechefextract');
 const axios = require('axios');
 const User = require('../models/user');
 
@@ -19,29 +19,35 @@ exports.gettopicbyid = async (req, res) => {
 
         if(!user) return res.status(400).json({success: false,message: 'user not found'});
 
-        if(user.Codeforcesid=== undefined || user.Codeforcesid === null)
+        if(user.codechefid=== undefined || user.codechefid === null)
             return res.status(400).json({success: false,message: 'Codeforcesid is null'});
 
         const pageid = req.body.pageid;
 
-        const questions = await getquestions({id: parseInt(pageid)})
+        const questions = await getquestions({id: pageid})
         
-        const codeforcesquestions = await axios.get(`https://codeforces.com/api/user.status?handle=${user.Codeforcesid}&from=1`);
-        const codeforcesdata = codeforcesquestions.data.result
+        const codechefdata = await axios.get(`https://competitive-coding-api.herokuapp.com/api/codechef/${user.codechefid}`);
 
+        const objects = codechefdata?.data?.fully_solved;
+
+        let codechefdone = [];
+
+        for(var key in objects) {
+            if(key!=="count"){
+                var value = objects[key];
+                codechefdone = codechefdone.concat(value);
+            }
+        }
 
         questions?.map((question, i) => {
-            codeforcesdata?.map((data) => {
-                if(data.verdict === 'OK')
-                {
-                    if(question.questionTitle === data.problem.name){
+            codechefdone?.map((data) => {
+                    if(question.questionCode === data.name){
                         questions[i].done = true; 
                     }
-                }
             })
         })
 
-        res.status(200).json({success: true,questions, user});
+        res.status(200).json({success: true,questions});
 
     } catch (error) {
         res.status(500).json({success: false, message: error.message})

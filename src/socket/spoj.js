@@ -11,7 +11,7 @@ const getspojandemit = (socket, payload) => {
         } catch (error) {
             console.log("Error ; ", error);
         }
-    }, 30000)
+    }, 60000)
 }
 
 
@@ -34,6 +34,6 @@ const getspojdata = (socket) => {
 
 
 module.exports = {
-    getcodeforcesdata
+    getspojdata
 }
 

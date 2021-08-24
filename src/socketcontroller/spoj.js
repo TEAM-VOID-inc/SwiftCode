@@ -4,13 +4,10 @@ const User = require('../models/user');
 
 exports.gettopicbyid = async ({id, pageid}) => {
     try {
-        const id= req.params.id;
         const user = await User.findById(id);
 
         if(user.spojid=== undefined || user.spojid === null)
             return res.status(400).json({message: 'spojid is null'});
-
-        const pageid = req.body.pageid;
 
         const questions = await getquestions({id: pageid})
         

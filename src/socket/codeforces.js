@@ -11,7 +11,7 @@ const getcodeforcesandemit = (socket, payload) => {
         } catch (error) {
             console.log("Error ; ", error);
         }
-    }, 30000)
+    }, 60000)
 }
 
 

@@ -11,7 +11,7 @@ const getGFGandemit = (socket, payload) => {
         } catch (error) {
             console.log("Error ; ", error.code);
         }
-    }, 30000)
+    }, 60000)
 }
 
 

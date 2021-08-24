@@ -18,6 +18,9 @@ exports.gettopicbyid = async (req, res) => {
         const id= req.params.id;
         const user = await User.findById(id);
 
+        if(!user) 
+            return res.status(400).json({success: false,message: 'user not found'});
+
         if(user.spojid=== undefined || user.spojid === null)
             return res.status(400).json({success: false,message: 'spojid is null'});
 

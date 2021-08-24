@@ -6,6 +6,7 @@ const blog = require('./blog');
 const vedio = require('./vedio');
 const playlist = require('./playlist');
 const spoj = require('./spoj');
+const codechef = require('./codechef');
 
 const authenticate = require('../middlewares/authenticate');
 
@@ -22,4 +23,5 @@ module.exports = app => {
     app.use('/vedio',authenticate , vedio);
     app.use('/playlist',authenticate ,playlist);
     app.use('/spoj',spoj);
+    app.use('/codechef', codechef);
 };

@@ -9,9 +9,10 @@ exports.getGFG = async (req, res) => {
     try {
         const id= req.params.id;
         const user = await User.findById(id);
+        if(!user) return res.status(400).json({success: false,message: 'user not found'});
 
         if(user.GFGid === undefined || user.GFGid === null)
-            return res.json({success: false,message: 'Enter Gfg id'});
+            return res.status(400).json({success: false,message: 'Enter Gfg id'});
 
         const articles = await gfg({GFGid : user.GFGid});
 

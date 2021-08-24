@@ -6,6 +6,9 @@ const passport = require("passport");
 const path = require("path");
 const {getgfgdata} = require('./socket/socketgfg');
 const {getcodeforcesdata} = require('./socket/codeforces');
+const {getspojdata} = require('./socket/spoj')
+const {getcodechefdata} = require('./socket/codeforces');
+
 
 //connection uri and port
 const connUri = process.env.MONGO_LOCAL_CONN_URL;
@@ -13,7 +16,7 @@ const port = process.env.PORT || 3001;
 
 const app = express();
 
-
+//for cors origin platform
 app.use(cors());
 
 
@@ -41,7 +44,7 @@ connection.on('error', (err) => {
 });
 
 
-//=== 3 - INITIALIZE PASSPORT MIDDLEWARE
+//Middleware
 app.use(passport.initialize());
 require("./middlewares/jwt")(passport);
 
@@ -64,8 +67,10 @@ io.on("connection", socket => {
     console.log("New client connected"), 
     getgfgdata(socket);
     getcodeforcesdata(socket);
+    getspojdata(socket);
+    getcodechefdata(socket);
     socket.on("disconnect", () => console.log("CLIENT DISCONNECT"));
 });
 
-
+//listening server
 server.listen(port, () => console.log(`Listening on port ${port}`));
