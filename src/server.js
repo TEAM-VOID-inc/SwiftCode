@@ -7,7 +7,7 @@ const path = require("path");
 const {getgfgdata} = require('./socket/socketgfg');
 const {getcodeforcesdata} = require('./socket/codeforces');
 const {getspojdata} = require('./socket/spoj')
-const {getcodechefdata} = require('./socket/codeforces');
+const {getcodechefdata} = require('./socket/codechef');
 
 
 //connection uri and port
@@ -65,6 +65,7 @@ const io = require("socket.io")(server, {
 
 io.on("connection", socket => {
     console.log("New client connected"), 
+    console.log("Client socket id ",socket.id);
     getgfgdata(socket);
     getcodeforcesdata(socket);
     getspojdata(socket);

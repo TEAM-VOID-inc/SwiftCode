@@ -7,10 +7,10 @@ exports.gettopicbyid = async ({id, pageid}) => {
     try {
         const user = await User.findById(id);
 
-        if(!user) return res.status(400).json({success: false,message: 'user not found'});
+        if(!user) return ({success: false,message: 'user does not exist'});
 
         if(user.codechefid=== undefined || user.codechefid === null)
-            return res.status(400).json({success: false,message: 'Codeforcesid is null'});
+            return ({success: false,message: 'Codechefid is null'});
 
 
         const questions = await getquestions({id: pageid})
@@ -36,7 +36,7 @@ exports.gettopicbyid = async ({id, pageid}) => {
             })
         })
 
-        return questions;
+        return ({success: true,questions}) ;
 
     } catch (error) {
         console.log("error", error);

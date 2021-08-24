@@ -9,6 +9,9 @@ exports.addPlaylist = async (req, res)=>{
     try {
         const user = await User.findById(req.body.userId);
 
+        if(!user) 
+            return res.status(404).json({success: false,message: "User not exists"});
+
         const newPlaylist = req.body;
         delete newPlaylist.userId;
 

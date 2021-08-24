@@ -6,8 +6,11 @@ exports.gettopicbyid = async ({id, pageid}) => {
     try {
         const user = await User.findById(id);
 
+        if(!user)
+            return ({success: false,message: 'user does not exist'});
+
         if(user.spojid=== undefined || user.spojid === null)
-            return res.status(400).json({message: 'spojid is null'});
+            return ({success: false,message: 'spojid is null'});
 
         const questions = await getquestions({id: pageid})
         
@@ -22,7 +25,7 @@ exports.gettopicbyid = async ({id, pageid}) => {
             }) 
         })
 
-        return questions;
+        return ({success: false,questions});
 
     } catch (error) {
         console.log("error", error);

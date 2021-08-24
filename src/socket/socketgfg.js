@@ -5,7 +5,7 @@ var loop;
 const getGFGandemit = (socket, payload) => {
     loop = setInterval(async() =>{
         try {
-            console.log("GFG function is running")
+            console.log("GFG function is running", payload)
             const data = await getGFG({id : payload.id});
             socket.emit("GFGdata", data);
         } catch (error) {

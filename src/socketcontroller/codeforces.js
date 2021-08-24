@@ -7,15 +7,16 @@ exports.gettopicbyid = async ({id, pageid}) => {
     try {
         const user = await User.findById(id);
 
-        if(user.Codeforcesid=== undefined || user.Codeforcesid === null)
-            return res.status(400).json({message: 'Codeforcesid'});
+        if(!user)
+            return ({success: false,message: 'user does not exist'});
 
+        if(user.Codeforcesid=== undefined || user.Codeforcesid === null)
+            return ({success: false,message: 'Codeforces is null'});
 
         const questions = await getquestions({id: parseInt(pageid)})
         
         const codeforcesquestions = await axios.get(`https://codeforces.com/api/user.status?handle=${user.Codeforcesid}&from=1`);
         const codeforcesdata = codeforcesquestions.data.result
-
 
         questions?.map((question, i) => {
             codeforcesdata?.map((data) => {
@@ -28,7 +29,7 @@ exports.gettopicbyid = async ({id, pageid}) => {
             })
         })
 
-        return questions;
+        return ({success: true,questions});
 
     } catch (error) {
         console.log("error", error);

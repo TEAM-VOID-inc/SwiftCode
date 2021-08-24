@@ -10,7 +10,7 @@ exports.addVedio = async (req, res)=>{
     try {
         const user = await User.findById(req.body.userId);
 
-        if(!user) return res.status(200).json({success: false,message: 'User not found'});
+        if(!user) return res.status(200).json({success: false,message: 'User doesnot exist'});
 
         const newVedio = req.body;
         delete newVedio.userId;

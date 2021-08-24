@@ -8,6 +8,9 @@ exports.getGFG = async ({id}) => {
     try {
         const user = await User.findById(id);
 
+        if(!user)
+            return ({success: false,message: 'user does not exist'});
+
         if(user.GFGid === undefined || user.GFGid === null)
             return res.json({message: 'Enter Gfg id'});
 
@@ -18,7 +21,7 @@ exports.getGFG = async ({id}) => {
         const questionsdone = await GFGTopic.find({});
 
         questionsdone?.map((que, i)=>{
-            questionsdone[i] = {topic : que._doc.topic , count : 0, questionsets : [], position: i}
+            questionsdone[i] = {topic : que._doc.topic , count : 0, totalcount: 0, questionsets : [], position: i}
         })
 
         questions?.map((question, j)=>{
@@ -56,9 +59,18 @@ exports.getGFG = async ({id}) => {
                 if(questionsdone[i].questionsets.length > 0)
                     {
                         questionsdone[i].count = count;
+                        if(questions[j].type === "practice")
+                        {
+                            questionsdone[i].totalcount = questionsdone[i].totalcount+1;
+                        }
                         questionsdone[i].questionsets = [...questionsdone[i].questionsets, questions[j]];
                     }else{
                         questionsdone[i].count = count;
+
+                        if(questions[j].type === "practice")
+                        {
+                            questionsdone[i].totalcount = questionsdone[i].totalcount+1;
+                        }
                         questionsdone[i].questionsets = [questions[j]];
                     }
                 j++;
@@ -71,8 +83,8 @@ exports.getGFG = async ({id}) => {
         questionsdone.sort(function (a, b) {
             return a.position - b.position;
         });
-
-        return questionsdone;
+        
+        return ({success: true,questionsdone});
 
     } catch (error) {
         console.log("error", erorr);

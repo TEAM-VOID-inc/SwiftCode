@@ -22,6 +22,6 @@ module.exports = app => {
     app.use('/blog',authenticate , blog);
     app.use('/vedio',authenticate , vedio);
     app.use('/playlist',authenticate ,playlist);
-    app.use('/spoj',spoj);
-    app.use('/codechef', codechef);
+    app.use('/spoj',authenticate ,spoj);
+    app.use('/codechef',authenticate , codechef);
 };
