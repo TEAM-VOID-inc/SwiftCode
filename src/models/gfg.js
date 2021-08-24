@@ -8,6 +8,11 @@ const gfgSchema = new mongoose.Schema({
         required: 'title is required',
     },
 
+    maintitle: {
+        type: String,
+        required: 'maintitle is required',
+    },
+
     link : {
         type: String,
         required: 'link is required',
@@ -15,7 +20,12 @@ const gfgSchema = new mongoose.Schema({
 
     topic:{
         type: String,
-        reuired: 'topic is required'
+        required: 'topic is required',
+    },
+
+    type:{
+        type: String,
+        required:'type is required',
     }
 
 }, {timestamps: true});

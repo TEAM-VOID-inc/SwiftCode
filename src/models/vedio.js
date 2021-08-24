@@ -8,7 +8,6 @@ const vedioSchema = new Schema({
     },
     description :{
         type: String,
-        required: true,
     },
     link:{
         type: String,
@@ -17,6 +16,14 @@ const vedioSchema = new Schema({
     playlistId:{
         type: Schema.Types.ObjectId,
         ref: 'playlist'
+    },
+    author:{
+        type: String,
+        required: true,
+    },
+    type:{
+        type: String,
+        required: true,
     },
     userId: {
         type: Schema.Types.ObjectId,

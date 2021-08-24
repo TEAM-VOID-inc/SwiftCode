@@ -41,6 +41,14 @@ const UserSchema = new Schema({
         type: String,
         default: null,
     },
+    leetcodeid: {
+        type: String,
+        default: null,
+    },
+    spojid:{
+        type: String,
+        default: null,
+    },
     blogs: [{
         type: Schema.Types.ObjectId,
         ref: 'blog'
@@ -53,6 +61,13 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'playlist'
     }],
+    vediodone: [{
+        type: Schema.Types.ObjectId,
+        ref: 'vedio'
+    }],
+    type:{
+        type: String,
+    },
     resetPasswordToken : {
         type: String,
         required: false,

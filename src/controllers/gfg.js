@@ -4,13 +4,14 @@ const User = require('../models/user');
 const GFGTopic = require('../models/gfgTopic');
 
 
+
 exports.getGFG = async (req, res) => {
     try {
         const id= req.params.id;
         const user = await User.findById(id);
 
         if(user.GFGid === undefined || user.GFGid === null)
-            return res.json({message: 'Enter Gfg id'});
+            return res.json({success: false,message: 'Enter Gfg id'});
 
         const articles = await gfg({GFGid : user.GFGid});
 
@@ -19,7 +20,7 @@ exports.getGFG = async (req, res) => {
         const questionsdone = await GFGTopic.find({});
 
         questionsdone?.map((que, i)=>{
-            questionsdone[i] = {topic : que._doc.topic , count : 0, questionsets : [], position: i}
+            questionsdone[i] = {topic : que._doc.topic , count : 0, totalcount: 0, questionsets : [], position: i}
         })
 
         questions?.map((question, j)=>{
@@ -57,9 +58,18 @@ exports.getGFG = async (req, res) => {
                 if(questionsdone[i].questionsets.length > 0)
                     {
                         questionsdone[i].count = count;
+                        if(questions[j].type === "practice")
+                        {
+                            questionsdone[i].totalcount = questionsdone[i].totalcount+1;
+                        }
                         questionsdone[i].questionsets = [...questionsdone[i].questionsets, questions[j]];
                     }else{
                         questionsdone[i].count = count;
+
+                        if(questions[j].type === "practice")
+                        {
+                            questionsdone[i].totalcount = questionsdone[i].totalcount+1;
+                        }
                         questionsdone[i].questionsets = [questions[j]];
                     }
                 j++;
@@ -73,7 +83,7 @@ exports.getGFG = async (req, res) => {
             return a.position - b.position;
         });
 
-        res.status(201).json(questionsdone);
+        res.status(201).json({success: true,questionsdone});
 
     } catch (error) {
         res.status(500).json({success: false, message: error.message})
@@ -88,13 +98,13 @@ exports.addGFG= async (req, res) => {
         const linkcheck = await GFGmodel.findOne({link});
 
         if(linkcheck)
-            return res.status(401).json({message: "Question already Exits"});
+            return res.status(401).json({success: false,message: "Question already Exits"});
         
         const newQuestion = new GFGmodel({title, link, topic});
 
         await newQuestion.save();
 
-        res.status(201).json({message: "Question Sucessfully Added"});
+        res.status(201).json({success: true,message: "Question Sucessfully Added"});
 
     } catch (error) {
         res.status(500).json({success: false, message: error.message})
@@ -109,13 +119,13 @@ exports.gfgTopicAdd = async (req, res) => {
         const topiccheck = await GFGTopic.findOne({topic});
 
         if(topiccheck)
-            return res.status(401).json({message: "Topic Already Exists"});
+            return res.status(401).json({success: false,message: "Topic Already Exists"});
 
         const newTopic = new GFGTopic({topic});
 
         await newTopic.save();
 
-        res.status(201).json({message: "Topic Sucessfully Added"});
+        res.status(201).json({success: true,message: "Topic Sucessfully Added"});
 
     } catch (error) {
         res.status(500).json({success: false, message: error.message})

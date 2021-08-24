@@ -1,4 +1,4 @@
-const {sgetquestions} = require('../utils/codeforcesextract');
+const {getquestions} = require('../utils/codeforcesextract');
 const axios = require('axios');
 const User = require('../models/user');
 

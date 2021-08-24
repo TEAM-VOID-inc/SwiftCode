@@ -1,8 +1,5 @@
 const express = require("express");
 const http = require("http");
-const axios = require("axios");
-
-const index = require("./routes/index");
 const mongoose = require('mongoose');
 const cors = require('cors');
 const passport = require("passport");
@@ -65,10 +62,8 @@ const io = require("socket.io")(server, {
 
 io.on("connection", socket => {
     console.log("New client connected"), 
-
     getgfgdata(socket);
     getcodeforcesdata(socket);
-
     socket.on("disconnect", () => console.log("CLIENT DISCONNECT"));
 });
 

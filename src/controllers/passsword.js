@@ -12,7 +12,7 @@ exports.recover = async(req,res,next) => {
         const user = await User.findOne({email});
 
         if(!user)
-            return res.status(404).json({message: 'Email address not Registerd'});
+            return res.status(404).json({success: false,message: 'Email address not Registerd'});
         
         user.generatePasswordReset();
 
@@ -28,10 +28,10 @@ exports.recover = async(req,res,next) => {
 
         await sendEmail({ subject, text, html, to , from});
 
-        res.status(200).json({message: "An email has been sent to reset your password"})
+        res.status(200).json({success: true,message: "An email has been sent to reset your password"})
 
     } catch (error) {
-        res.json(500).json({message : error});
+        res.json(500).json({success: false,message : error});
     }
 }
 
@@ -45,12 +45,12 @@ exports.reset = async (req, res) => {
         const user = await User.findOne({resetPasswordToken: token, resetPasswordExpires: {$gt: Date.now()}});
 
         if (!user) 
-            return res.status(401).json({message: 'Password reset token is invalid or has expired.'});
+            return res.status(401).json({success: false,message: 'Password reset token is invalid or has expired.'});
 
             res.render('reset', {user});
-            res.status(200).json({message: 'A link is created to reset Password. Check Your Email'})
+            res.status(200).json({success: true,message: 'A link is created to reset Password. Check Your Email'})
     } catch (error) {
-        
+        res.status(500).json({success: false,message: error.message})
     }
 }
 
@@ -63,7 +63,7 @@ exports.resetPassword = async (req, res) => {
 
         const user = await User.findOne({resetPasswordToken: token, resetPasswordExpires: {$gt: Date.now()}});
 
-        if (!user) return res.status(401).json({message: 'Password reset token is invalid or has expired.'});
+        if (!user) return res.status(401).json({success: false,message: 'Password reset token is invalid or has expired.'});
 
         user.password = req.body.password;
         user.resetPasswordToken = undefined;
@@ -80,9 +80,9 @@ exports.resetPassword = async (req, res) => {
 
         await sendEmail({ subject, text, html, to , from});
 
-        res.status(200).json({message: 'Your password has been updated.'});
+        res.status(200).json({success: true,message: 'Your password has been updated.'});
 
     } catch (error) {
-        res.status(500).json({message: error.message})
+        res.status(500).json({success: false,message: error.message})
     }
 };

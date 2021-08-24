@@ -19,7 +19,7 @@ exports.addblog = async (req, res)=>{
 
         const user = await Blogger.save();
 
-        res.status(200).json({blog, user});
+        res.status(200).json({success: true,blog, user});
 
     } catch (error) {
         res.status(500).json({success: false, message: error.message})
@@ -31,7 +31,7 @@ exports.addblog = async (req, res)=>{
 exports.getallblog = async (req, res)=>{
     try {
         const blogs = await Blog.find({});
-        res.status(200).json({blogs});
+        res.status(200).json({success: true,blogs});
     } catch (error) {
         res.status(500).json({success: false, message: error.message})
     }
@@ -47,7 +47,7 @@ exports.getuserblog = async(req, res) =>{
             return res.status(404).json({message: "User not exists"});
 
         const blogs = await Blog.find({userId});
-        res.status(200).json({blogs});
+        res.status(200).json({success: true,blogs});
 
     } catch (error) {
         res.status(500).json({success: false, message: error.message})
@@ -68,7 +68,7 @@ exports.deleteblog = async(req, res) => {
         user.blogs.pull(blog);
         await user.save();
 
-        res.status(200).json({user});
+        res.status(200).json({success: true,user});
 
     } catch (error) {
         res.status(500).json({success: false, message: error.message})
@@ -80,7 +80,7 @@ exports.deleteblog = async(req, res) => {
 exports.updateblog = async(req, res) => {
     try {
         const blog = await Blog.findByIdAndUpdate(req.params.id, req.body)
-        res.status(200).json({message: "Blog is updated"});
+        res.status(200).json({success: true,message: "Blog is updated"});
         
     } catch (error) {
         res.status(500).json({success: false, message: error.message})

@@ -6,6 +6,7 @@ const validate = require('../middlewares/validator');
 
 const router = express.Router();
 
+
 router.get('/', vedio.getallvedio);
 
 router.post('/',  [
@@ -15,12 +16,15 @@ router.post('/',  [
     check('userId').not().isEmpty().withMessage('userId is required')
 ], validate, vedio.addVedio);
 
+// router.post('/', vedio.postallvedios);
 
 router.get('/:id', vedio.getuservedio);
 
 router.put('/:id', vedio.updatevedio);
 
 router.delete('/:id', vedio.deletevedio);
+
+
 
 
 

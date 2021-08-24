@@ -8,9 +8,10 @@ const router = express.Router();
 
 router.get('/', playlist.getallPlaylist);
 
+
 router.post('/',  [
     check('title').not().isEmpty().withMessage('title is required'),
-    check('vedios').not().isEmpty().withMessage('vedios is required'),
+    // check('vedios').not().isEmpty().withMessage('vedios is required'),
     check('userId').not().isEmpty().withMessage('userId is required')
 ], validate, playlist.addPlaylist);
 
@@ -22,7 +23,6 @@ router.put('/:id', playlist.updatePlaylist);
 router.delete('/:id', playlist.deletePlaylist);
 
 router.get('/vedios/:id', playlist.getplaylistvedios)
-
 
 
 module.exports = router;

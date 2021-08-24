@@ -6,13 +6,11 @@ const User = require('../models/user');
 exports.getContent = async(req, res) => {
     try {
         const content = await getContent();
-        res.status(200).json({content});
+        res.status(200).json({success: true,content});
     } catch (error) {
         res.status(500).json({success: false, message: error.message})
     }
-
 }
-
 
 exports.gettopicbyid = async (req, res) => {
     try {
@@ -20,7 +18,7 @@ exports.gettopicbyid = async (req, res) => {
         const user = await User.findById(id);
 
         if(user.Codeforcesid=== undefined || user.Codeforcesid === null)
-            return res.status(400).json({message: 'Codeforcesid'});
+            return res.status(400).json({success: false,message: 'Codeforcesid is null'});
 
         const pageid = req.body.pageid;
 
@@ -41,7 +39,7 @@ exports.gettopicbyid = async (req, res) => {
             })
         })
 
-        res.status(200).json({questions, user});
+        res.status(200).json({success: true,questions, user});
 
     } catch (error) {
         res.status(500).json({success: false, message: error.message})
