@@ -81,7 +81,6 @@ exports.updateblog = async(req, res) => {
     try {
         const blog = await Blog.findByIdAndUpdate(req.params.id, req.body)
         res.status(200).json({success: true,message: "Blog is updated"});
-        
     } catch (error) {
         res.status(500).json({success: false, message: error.message})
     }

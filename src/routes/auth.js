@@ -14,14 +14,14 @@ router.get('/', (req, res) => {
 
 //Registeration
 router.post('/register', [
-    check('email').isEmail().withMessage('Enter a valid email address'),
-    check('password').not().isEmpty().isLength({min : 6}).withMessage('Password Must be of length 6')
+    check('email').isEmail().withMessage({success:false,message:'Email is required'}),
+    check('password').not().isEmpty().isLength({min : 6}).withMessage({success:false,message:'password is required of length 6'})
 ], validate, Auth.register);
 
 
 //Login
 router.post("/login", [
-    check('email').isEmail().withMessage('Enter a valid email address'),
+    check('email').isEmail().withMessage({success:false,message:'Email is required'}),
     check('password').not().isEmpty(),
 ], validate, Auth.login);
 
@@ -31,13 +31,13 @@ router.post('/resend', Auth.resendToken);
 
 //Password RESET
 router.post('/recover', [
-    check('email').isEmail().withMessage('Enter a valid email address'),
+    check('email').isEmail().withMessage({success:false,message:'Email is required'}),
 ], validate, Password.recover);
 
 router.get('/reset/:token', Password.reset);
 
 router.post('/reset/:token', [
-    check('password').not().isEmpty().isLength({min: 6}).withMessage('Must be at least 6 chars long'),
+    check('password').not().isEmpty().isLength({min: 6}).withMessage({success:false,message:'Email is required'}),
     check('confirmPassword', 'Passwords do not match').custom((value, {req}) => (value === req.body.password)),
 ], validate, Password.resetPassword);
 

@@ -9,9 +9,9 @@ const router = express.Router();
 router.get('/', Blog.getallblog);
 
 router.post('/',  [
-    check('title').not().isEmpty().withMessage('title is required'),
-    check('description').not().isEmpty().withMessage('desctiption is required'),
-    check('userId').not().isEmpty().withMessage('userId is required')
+    check('title').not().isEmpty().withMessage({success:false,message:'Title is required'}),
+    check('description').not().isEmpty().withMessage({success:false,message:'Description is required'}),
+    check('userId').not().isEmpty().withMessage({success:false,message:'UserId is required'})
 ], validate, Blog.addblog);
 
 

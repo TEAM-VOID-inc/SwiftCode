@@ -65,8 +65,9 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'vedio'
     }],
-    type:{
+    role:{
         type: String,
+        default: 'basic'
     },
     resetPasswordToken : {
         type: String,

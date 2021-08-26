@@ -94,14 +94,20 @@ exports.getGFG = async (req, res) => {
 
 exports.addGFG= async (req, res) => {
     try {
-        const {title, link, topic} = req.body;
+        const {title, link, topic, maintitle, type ,userId} = req.body;
+
+        const user = await User.findById(userId);
+        if(!user) return res.status(400).json({success: false,message: 'user not found'});
+
+        if(user.role !== "admin")
+                return res.status(403).json({success: false,message: 'Dont Have Permission to do that'});
 
         const linkcheck = await GFGmodel.findOne({link});
 
         if(linkcheck)
             return res.status(401).json({success: false,message: "Question already Exits"});
         
-        const newQuestion = new GFGmodel({title, link, topic});
+        const newQuestion = new GFGmodel({title, link, topic, maintitle, type});
 
         await newQuestion.save();
 
@@ -115,7 +121,14 @@ exports.addGFG= async (req, res) => {
 
 exports.gfgTopicAdd = async (req, res) => {
     try {
-        const {topic} =  req.body;
+        const {topic, userId} =  req.body;
+
+        const user = await User.findById(userId);
+
+        if(!user) return res.status(400).json({success: false,message: 'user not found'});
+
+        if(user.role !== "admin")
+                return res.status(403).json({success: false,message: 'Dont Have Permission to do that'});
 
         const topiccheck = await GFGTopic.findOne({topic});
 

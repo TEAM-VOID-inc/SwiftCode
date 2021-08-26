@@ -21,6 +21,7 @@
     "express-validator": "^6.12.1",
     "faker": "^5.5.3",
     "googleapis": "^83.0.0",
+    "hackerearth-node": "^2.3.9",
     "jade": "^1.11.0",
     "jsonwebtoken": "^8.5.1",
     "mjml": "^4.10.2",

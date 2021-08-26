@@ -12,6 +12,8 @@ exports.addPlaylist = async (req, res)=>{
         if(!user) 
             return res.status(404).json({success: false,message: "User not exists"});
 
+        if(user.role !== 'admin') return res.status(400).json({success: false,message: "You don't have permission to access this"});
+
         const newPlaylist = req.body;
         delete newPlaylist.userId;
 
@@ -67,6 +69,11 @@ exports.getuserPlaylist = async(req, res) =>{
 //delete blog
 exports.deletePlaylist= async(req, res) => {
     try {
+        const userId = req.body.userId
+        const user_ = await User.findById(userId);
+
+        if(user_.role !== 'admin') return res.status(400).json({success: false,message: "You don't have permission to access this"});
+
         const playlist = await Playlist.findByIdAndRemove(req.params.id);
 
         if(!playlist) {
@@ -88,7 +95,15 @@ exports.deletePlaylist= async(req, res) => {
 //update blog
 exports.updatePlaylist = async(req, res) => {
     try {
-        const playlist = await Playlist.findByIdAndUpdate(req.params.id, req.body)
+        const userId = req.body.userId
+        const user = await User.findById(userId);
+
+        if(user.role !== 'admin') return res.status(400).json({success: false,message: "You don't have permission to access this"});
+
+        await Playlist.findByIdAndUpdate(req.params.id, req.body)
+
+        const playlist = await Playlist.findById(req.params.id);
+
         res.status(200).json({success: true,message: "Playlist is updated",  playlist});
     } catch (error) {
         res.status(500).json({success: false, message: error.message})

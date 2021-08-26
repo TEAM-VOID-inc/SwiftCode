@@ -4,8 +4,15 @@ const {uploader} = require('../utils/uploader');
 
 //Return all users 
 exports.index = async function (req, res) {
+    const userId = req.body.userId;
+    const user = await User.findById(userId);
+
+    if(!user) return res.json({success: false,message: "User not Found"});
+
+    if(user.role !== 'admin')
+        return res.status(403).json({success: false,message: "You don't have permission to access this"});
     const users = await User.find({});
-    res.status(200).json({users});
+    res.status(200).json({success: true,users});
 };
 
 //Add a new user
@@ -20,7 +27,7 @@ exports.store = async(req, res) => {
             return res.status(401).json({message: 'Email already Exists'});
 
         const password = '_' + Math.random().toString(36).substr(2, 9);
-        const newUser = new User({...req.body, password, type: "basic"});
+        const newUser = new User({...req.body, password});
 
         const user_ = await newUser.save();
 
@@ -41,7 +48,7 @@ exports.store = async(req, res) => {
         res.status(200).json({success: true,message: 'An email has been sent to ' + user.email + '.'})
 
     } catch (error) {
-        res.status(500).json({success: false, message: error.message})
+        res.status(500).json({success: false, message: 'Error in creating a User'})
     }
 }
 
@@ -57,7 +64,7 @@ exports.show = async function (req, res) {
 
         res.status(200).json({success: true,user});
     } catch (error) {
-        res.status(500).json({success: false,message: error.message})
+        res.status(500).json({success: false,message: 'Error in getting User'})
     }
 };
 
@@ -75,7 +82,7 @@ exports.update = async function (req, res) {
         return res.status(200).json({success: true,user: user_, message: 'User has been updated'});
 
     } catch (error) {
-        res.status(500).json({success: false,message: error.message});
+        res.status(500).json({success: false,message: 'there is an error in user updation'});
     }
 };
 
@@ -94,6 +101,22 @@ exports.destroy = async function (req, res) {
         res.status(200).json({success: true,message: 'User has been deleted'});
 
     } catch (error) {
-        res.status(500).json({message: error.message});
+        res.status(500).json({success: false,message: 'there is an error in user deletion'});
     }
 };
+
+//make a user admin
+exports.makeadmin = async function (req, res) {
+    try {
+        const id = req.params.id;
+        const user= await User.findById(id);
+
+        user.role = "admin";
+
+        const user_ = await user.save();
+        
+        return res.status(200).json({success: true,user: user_, message: 'User is Admin Now'});
+    } catch (error) {
+        res.status(500).json({success: false,message: 'Dont updated as Admin. Please Contact to Website Owner'});
+    }
+}

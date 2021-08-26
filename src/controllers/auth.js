@@ -52,7 +52,6 @@ exports.register = async (req, res)=>{
 
 
 // Login Controller
-
 exports.login = async (req, res)=>{
     try {
         const { email, password } = req.body;
@@ -71,7 +70,7 @@ exports.login = async (req, res)=>{
             return res.status(401).json({ type: 'not-verified', message: 'Your account has not been verified.' });
 
         // Login successful, write token, and send back user
-        res.status(200).json({success: TextTrackCue,token: user.generateJWT(), user: user});
+        res.status(200).json({success: true,token: user.generateJWT(), user: user});
     } catch (error) {
         res.status(500).json({success: false,message: error.message})
     }

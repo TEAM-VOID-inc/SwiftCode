@@ -12,6 +12,9 @@ exports.addVedio = async (req, res)=>{
 
         if(!user) return res.status(200).json({success: false,message: 'User doesnot exist'});
 
+        if(user.role !== 'admin')
+            return res.status(403).json({success: false,message: "You don't have permission to access this"});
+
         const newVedio = req.body;
         delete newVedio.userId;
 
@@ -33,6 +36,14 @@ exports.addVedio = async (req, res)=>{
 //get all vedios
 exports.getallvedio = async (req, res)=>{
     try {
+        const userId = req.body.userId;
+        const user = await User.findById(userId);
+    
+        if(!user) return res.json({success: false,message: "User not Found"});
+    
+        if(user.role !== 'admin')
+            return res.status(403).json({success: false,message: "You don't have permission to access this"});
+
         const vedios = await Vedio.find({});
         res.status(200).json({success: true,vedios});
     } catch (error) {
@@ -61,6 +72,11 @@ exports.getuservedio = async(req, res) =>{
 //deleteVedio
 exports.deletevedio= async(req, res) => {
     try {
+        const userId = req.body.userId;
+        const user_ = await User.findById(userId);
+
+        if(user_.role !== 'admin') return res.status(400).json({success: false,message: "You don't have permission to access this"});
+
         const vedio = await Vedio.findByIdAndRemove(req.params.id);
 
         if(!vedio) {
@@ -68,8 +84,11 @@ exports.deletevedio= async(req, res) => {
         }
 
         const user = await User.findById(vedio.userId);
-        user.vedios.pull(vedio);
-        await user.save();
+        if(user.vedios !== null){
+            user.vedios.pull(vedio);
+            await user.save();
+        }
+
 
         if(vedio.playlistId){
             const playlist = await Playlist.findById(vedio.playlistId);
@@ -88,6 +107,13 @@ exports.deletevedio= async(req, res) => {
 //update Vedio
 exports.updatevedio = async(req, res) => {
     try {
+
+        const userId = req.body.userId;
+
+        const user = await User.findById(userId);
+
+        if(user.role !== 'admin') return res.status(400).json({success: false,message: "You don't have permission to access this"});
+
         const vedio = await Vedio.findByIdAndUpdate(req.params.id, req.body)
         res.status(200).json({success: true,message: "Vedio is updated", vedio});
         

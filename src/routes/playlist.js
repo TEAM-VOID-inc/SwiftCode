@@ -10,17 +10,21 @@ router.get('/', playlist.getallPlaylist);
 
 
 router.post('/',  [
-    check('title').not().isEmpty().withMessage('title is required'),
-    // check('vedios').not().isEmpty().withMessage('vedios is required'),
-    check('userId').not().isEmpty().withMessage('userId is required')
+    check('title').not().isEmpty().withMessage({success:false,message:'Title is required'}),
+    check('vedios').not().isEmpty().withMessage({success:false,message:'Vedios is required'}),
+    check('userId').not().isEmpty().withMessage({success:false,message:'UserId is required'})
 ], validate, playlist.addPlaylist);
 
 
 router.get('/:id', playlist.getuserPlaylist);
 
-router.put('/:id', playlist.updatePlaylist);
+router.put('/:id',[
+    check('userId').not().isEmpty().withMessage({success:false,message:'userId is required'}),
+], validate, playlist.updatePlaylist);
 
-router.delete('/:id', playlist.deletePlaylist);
+router.delete('/:id',[
+    check('userId').not().isEmpty().withMessage({success:false,message:'userId is required'}),
+], validate, playlist.deletePlaylist);
 
 router.get('/vedios/:id', playlist.getplaylistvedios)
 
