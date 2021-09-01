@@ -3,18 +3,20 @@ import styled from "tachyons-components";
 import Dante from "Dante2";
 
 const Container = styled("div")`
-  mw6 mw7-ns center bg-light pa6 ph9-ns
+  mw6 mw7-ns center bg-dark pa6 ph9-ns
 `;
 console.log("wtf");
 
 var content = null;
 var test = window.localStorage.getItem(content);
 content = test;
-function App() {
+
+function Blog() {
   return (
-    <div style={{height: '90vh', width: '100%', backgroundColor: 'white'}}>
-    <Container>
+    <div style={{height: '90vh', width: '100%'}}>
+
       <Dante
+        style={{height: '90vh', width: '70%', backgroundColor: 'white', margin: '10px auto', padding: '20px'}}
         content={test}
         body_placeholder={"hello"}
         data_storage={{
@@ -26,9 +28,9 @@ function App() {
         }}
         read_only={false}
       />
-    </Container>
+
     </div>
   );
 }
 
-export default App;
+export default Blog;
