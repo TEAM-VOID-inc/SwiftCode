@@ -53,12 +53,12 @@ export const addPlaylist = (requestbody, token) => API.post(`/playlist/`, reques
 export const getallPlaylist = (token) => API.get(`/playlist/`,{headers: { Authorization: `Bearer ${token}`}});
 export const getuserplaylist = (id, token) => API.get(`/playlist/${id}`,  {headers: { Authorization: `Bearer ${token}`}});
 export const updateplaylist = (id, requestbody, token) => API.put(`/playlist/${id}`, requestbody, {headers: { Authorization: `Bearer ${token}`}});
-export const getplaylistvedios = (id, token) => API.get(`/playlist/${id}`, {headers: { Authorization: `Bearer ${token}`}});
+export const getplaylistvedios = (id, token) => API.get(`/playlist/vedios/${id}`, {headers: { Authorization: `Bearer ${token}`}});
 export const deleteplaylist = (id, requestbody, token) => API.delete(`/playlist/${id}`, requestbody, {headers: { Authorization: `Bearer ${token}`}});  
 
 //vediosDone
-export const vediomark = (requestbody, token) => API.post('/user/vediomark', requestbody, {headers: { Authorization: `Bearer ${token}`}});
-export const vediounmark = (requestbody, token) => API.post('/user/vediounmark', requestbody, {headers: { Authorization: `Bearer ${token}`}});
+export const vediomark = (id, requestbody, token) => API.post(`/user/vediomark/${id}?vedioid=${requestbody}`, {headers: { Authorization: `Bearer ${token}`}});
+export const vediounmark = (id, requestbody, token) => API.post(`/user/vediounmark/${id}?vedioid=${requestbody}`,{headers: { Authorization: `Bearer ${token}`}});
 
 
 //blogs 

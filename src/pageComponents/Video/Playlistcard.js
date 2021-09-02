@@ -8,9 +8,8 @@ import { useHistory } from 'react-router-dom';
 function PlaylistCard({id,title}) {
     const history = useHistory();
 
-
     function changeLink(id){
-        history.push(`/vedio/${id}`)
+        history.push(`/video/${id}`)
     }
 
     return (

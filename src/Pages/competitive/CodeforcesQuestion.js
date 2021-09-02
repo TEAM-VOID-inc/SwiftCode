@@ -10,19 +10,13 @@ import { GetcodeforcesQuestion, updateCodeForcesdata } from '../../redux/actions
 import { useParams } from 'react-router-dom';
 
 function CodeforcesQuestion() {
-    const [loading] = useState(false);
-
     const {id} = useParams();
-
     const User = useSelector((state) => state.auth?.user?.data);
     const Token = useSelector((state) => state.auth?.token);
     const [CodeforcesData, setCodeforcesData] = useState([]);
     const [codeforcesid, setcodeforcesid] = useState(null);
     const dispatch = useDispatch();
-
     const CodeforcesContent = useSelector((state) => state?.codeforces?.codeforcesquestion?.data?.questions);
-
-    console.log(CodeforcesContent)
 
     useEffect(() => {
         if(User?.user?.codechefid)
@@ -39,6 +33,7 @@ function CodeforcesQuestion() {
         }
     }, [User, id]);
 
+
     useEffect(() => {
         if(User?.user?.Codeforcesid)
         {
@@ -51,9 +46,9 @@ function CodeforcesQuestion() {
         console.log("clicked");
         dispatch(updateCodeForcesdata(User?.user?._id, {Codeforcesid : codeforcesid}, Token));
     }
+
     
-
-
+    
     return (
         <div>
             <div>

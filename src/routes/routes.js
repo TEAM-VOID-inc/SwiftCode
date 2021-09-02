@@ -19,9 +19,21 @@ import Forgot from '../Pages/Auth/Forgot';
 import Verify from '../Pages/Auth/Verify';
 import ResetPassword from '../Pages/Auth/ResetPassword';
 import NewBlog from '../Pages/blogs/NewBlog';
-
+import Blog from '../Pages/blogs/Blogs';
+import PlaylistVedios from '../Pages/vedios/PlaylistVedios'
+import Home from '../Pages/Home';
 
 const routes = [
+    { 
+        path: '/home',
+        component: [Navbar, Home],
+        protected: true
+    },
+    { 
+        path: '/blog',
+        component: [Navbar, Blog],
+        protected: true
+    },
     { 
         path: '/newBlog',
         component: [Navbar, NewBlog],
@@ -35,6 +47,11 @@ const routes = [
     { 
         path: '/profile',
         component: [Navbar, Profile],
+        protected: true
+    },
+    { 
+        path: '/video/:id',
+        component: [Navbar, PlaylistVedios],
         protected: true
     },
     { 

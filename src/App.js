@@ -8,6 +8,7 @@ import {GetGfgData } from './redux/actions/gfg';
 import {Getcodechefcontent} from './redux/actions/codechef'
 import { Getcodeforcescontent } from './redux/actions/codeforces';
 import { GetSpojcontent } from './redux/actions/spoj';
+import { Getallplaylist } from './redux/actions/playlist';
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +49,15 @@ function App() {
 
     if(User?.user?.spojid){
       const errordata = dispatch(GetSpojcontent(Token))
+      if(errordata)
+      {
+          errordata.then((result) => console.log(result));
+      }
+    }
+
+    if(User){
+      const errordata = dispatch(Getallplaylist(Token))
+
       if(errordata)
       {
           errordata.then((result) => console.log(result));

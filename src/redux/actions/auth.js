@@ -40,7 +40,7 @@ export const login = (formData, router) => async (dispatch) =>{
     try {
         const data =  await api.login(formData);
         dispatch({type: LOGIN, data});
-        router.push('/gfg');
+        router.push('/home');
     } catch (error) {
         const data =  error.response.data;
         return data;

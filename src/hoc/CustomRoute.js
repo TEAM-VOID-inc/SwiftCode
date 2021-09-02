@@ -10,10 +10,10 @@ const CustomRoute = ({ components, path, redirect, ...rest }) => {
     >
         {loggedIn === null ? components?.map((Comp, index) => (<Comp key={index} />))
         : 
-        (<Redirect to='/gfg' />)
+        (<Redirect to='/home' />)
         }
 
-      </Route>
+    </Route>
     );
 };
 
