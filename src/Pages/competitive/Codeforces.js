@@ -1,52 +1,75 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../assets/css/codeforces.css';
 import HeaderTypography from '../../pageComponents/HeaderTypography';
 import Codeforcescard from '../../pageComponents/Competitve/Codeforces/CodeforcesCard';
 import Skeleton from '../../pageComponents/Competitve/Skeleton';
 import '../../assets/css/skeleton.css';
 import CompetetiveModal from '../../pageComponents/Competitve/CompetitveModal';
-
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { updateCodeForcesdata } from '../../redux/actions/codeforces';
 
 
 function Codeforces() {
-    const [loading] = useState(false);
-    const CodeforcesData = Array(10).fill('');
-    const codeforces = null;
+
+    const User = useSelector((state) => state.auth?.user?.data);
+    const Token = useSelector((state) => state.auth?.token);
+    const [CodeforcesData, setCodeforcesData] = useState([]);
+    const [codeforcesid, setcodeforcesid] = useState(null);
+    const dispatch = useDispatch();
+
+    const CodeforcesContent = useSelector((state) => state?.codeforces?.codeforcescontent?.data?.content);
+
+    console.log(CodeforcesContent)
+
+    useEffect(() => {
+        if(User?.user?.Codeforcesid)
+        {
+            setCodeforcesData(CodeforcesContent);
+        }
+    }, [CodeforcesContent])
+
+
+    const updateCodeforces = () =>{
+        console.log("clicked");
+        dispatch(updateCodeForcesdata(User?.user?._id, {Codeforcesid : codeforcesid}, Token));
+    }
+    
 
     return (
         <div>
-            {codeforces === null ? 
-
-            <div >
-            
-            <CompetetiveModal 
-            open={codeforces === null} 
-            title = "Codeforces Handle Id is not Added" 
-            para = "please add your handle Id"
-            btncontent = "Add Codeforces handle"
-
-            /> 
+            <div>
+                {!User?.user?.Codeforcesid && 
+                
+                <CompetetiveModal 
+                open={true} 
+                title = "CodeChef Handle Id is not Added" 
+                para = "please add your handle Id"
+                btncontent = "Add CodeChef handle"
+                value ={codeforcesid}
+                onChange= {(e) => setcodeforcesid(e.target.value)}
+                onClick = {() => updateCodeforces()}
+            /> }
             </div>
 
             : 
 
             <div className="codeforcesContent">
             <HeaderTypography logoid={1} HeaderContent="Codeforces - Content Page"/>
-            {loading ? 
+            {CodeforcesData?.length <=0 || CodeforcesData === undefined ? 
                 <Skeleton />
             :
             <div>
             {
-                CodeforcesData.map((item, index) =>(
+                CodeforcesData.map((question, index) =>(
                                     <Codeforcescard key={index} 
-                                        id={11} 
-                                        contentName="1600 <= Codeforces Rating <= 1699" 
-                                        contentProblemCount={100} />))
+                                        id={question?.id} 
+                                        contentName={question?.contentName}
+                                        contentProblemCount={question?.contentProblemCount} />))
             }
             </div>
             }
         </div>
-            }
         </div>
         
     )

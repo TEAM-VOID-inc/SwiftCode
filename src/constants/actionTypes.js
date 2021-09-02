@@ -15,5 +15,11 @@ export const GETUSER = 'GETUSER';
 export const GFGdata = 'GFGdata';
 export const LOGINANDTOKEN = 'LOGINANDTOKEN';
 export const LOGINWTHOUTTOKEN = 'LOGINWTHOUTTOKEN';
+export const CodeChefContent = 'CodeChefContent';
+export const CodeforcesQuestion = 'CodeforcesQuestion';
+export const CodeChefQuestion = 'CodeChefQuestion';
+export const CodeForcesContent = 'CodeForcesContent';
+export const SpojContent= 'SpojContent';
+export const SpojQuestion = 'SpojQuestion';
 
 

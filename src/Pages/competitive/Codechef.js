@@ -1,31 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../assets/css/codeforces.css';
 import HeaderTypography from '../../pageComponents/HeaderTypography';
 import Codechefcard from '../../pageComponents/Competitve/CodeChef/CodeChefCard';
 import Skeleton from '../../pageComponents/Competitve/Skeleton';
 import '../../assets/css/skeleton.css';
 import CompetetiveModal from '../../pageComponents/Competitve/CompetitveModal';
-import { useSelector } from 'react-redux';
-
-
+import { useDispatch, useSelector } from 'react-redux';
+import { updateCodeChefdata } from '../../redux/actions/codechef';
 
 function CodeChef() {
-    const [loading] = useState(false);
     const User = useSelector((state) => state.auth?.user?.data);
     const Token = useSelector((state) => state.auth?.token);
     const [CodeChefData, setCodeChefData] = useState([]);
     const [codechefid, setcodechefid] = useState(null);
+    const dispatch = useDispatch();
+    
+    const CodeforcesContent = useSelector((state) => state.codechef?.codechefcontent?.data?.content);
 
-    console.log(User);
+    useEffect(() => {
+        if(User?.user?.codechefid)
+        {
+            setCodeChefData(CodeforcesContent);
+        }
+    }, [CodeforcesContent])
 
     const updateCodeChef = () =>{
-
+        console.log("clicked");
+        dispatch(updateCodeChefdata(User?.user?._id, {codechefid : codechefid}, Token));
     }
 
     return (
         <div>
             <div>
-                {!User?.user?.Codeforcesid && 
+                {!User?.user?.codechefid && 
                 
                 <CompetetiveModal 
                 open={true} 
@@ -34,7 +41,7 @@ function CodeChef() {
                 btncontent = "Add CodeChef handle"
                 value ={codechefid}
                 onChange= {(e) => setcodechefid(e.target.value)}
-                // onClick = {() => updateGfg()}
+                onClick = {() => updateCodeChef()}
             /> }
             </div>
 
@@ -45,7 +52,7 @@ function CodeChef() {
             :
             <div> 
             {
-                CodeChefData.map((item, index) =>(<Codechefcard key={index} contentName="school" />))
+                CodeChefData.map((contentName, index) =>(<Codechefcard key={index} contentName={contentName} />))
             }
             </div>
             

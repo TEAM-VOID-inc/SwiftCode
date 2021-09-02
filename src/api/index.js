@@ -26,17 +26,18 @@ export const getgfgquestion = (id, token) => API.get(`/gfg/${id}`, {headers: { A
 
 //codeforces 
 export const getcodeforcescontent = (token) => API.get(`/codeforces/`,{headers: { Authorization: `Bearer ${token}`}});
-export const getcodeforcespagecontent = (id,requestbody ,token) => API.get(`/codeforces/${id}`, requestbody, {headers: { Authorization: `Bearer ${token}`}});
+export const getcodeforcespagecontent = (id,requestbody ,token) => API.get(`/codeforces/${id}?pageid=${requestbody}`, {headers: { Authorization: `Bearer ${token}`}});
 
 
 //spoj 
 export const getspojcontent  = (token) => API.get(`/spoj/`,{headers: { Authorization: `Bearer ${token}`}});
-export const getspojpagecontent = (id,requestbody ,token) => API.get(`/spoj/${id}`, requestbody, {headers: { Authorization: `Bearer ${token}`}});
+export const getspojpagecontent = (id,requestbody ,token) => API.get(`/spoj/${id}?pageid=${requestbody}`, {headers: { Authorization: `Bearer ${token}`}});
 
 
 //codechef 
 export const getcodechefcontent  = (token) => API.get(`/codechef/`,{headers: { Authorization: `Bearer ${token}`}});
-export const getcodechefpagecontent = (id,requestbody ,token) => API.get(`/codechef/${id}`, requestbody, {headers: { Authorization: `Bearer ${token}`}});
+export const getcodechefpagecontent = (id, requestbody ,token) => API.get(`/codechef/${id}?pageid=${requestbody}`,{headers: { Authorization: `Bearer ${token}`}}
+);
 
 
 //vedios 
