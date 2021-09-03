@@ -17,21 +17,17 @@ function Codeforces() {
     const [CodeforcesData, setCodeforcesData] = useState([]);
     const [codeforcesid, setcodeforcesid] = useState(null);
     const dispatch = useDispatch();
-
     const CodeforcesContent = useSelector((state) => state?.codeforces?.codeforcescontent?.data?.content);
-
-    console.log(CodeforcesContent)
 
     useEffect(() => {
         if(User?.user?.Codeforcesid)
         {
             setCodeforcesData(CodeforcesContent);
         }
-    }, [CodeforcesContent])
+    }, [CodeforcesContent, User])
 
 
     const updateCodeforces = () =>{
-        console.log("clicked");
         dispatch(updateCodeForcesdata(User?.user?._id, {Codeforcesid : codeforcesid}, Token));
     }
     

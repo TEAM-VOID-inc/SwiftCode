@@ -11,23 +11,19 @@ import { updateSpojdata } from '../../redux/actions/spoj';
 
 function Spoj() {
 
-    
     const User = useSelector((state) => state.auth?.user?.data);
     const Token = useSelector((state) => state.auth?.token);
     const [SpojData, setSpojData] = useState([]);
     const [spojid, setspojid] = useState(null);
     const dispatch = useDispatch();
-
     const SPOJContent = useSelector((state) => state?.spoj?.spojcontent?.data?.content);
-
-    console.log(SPOJContent)
 
     useEffect(() => {
         if(User?.user?.spojid)
         {
             setSpojData(SPOJContent);
         }
-    }, [SPOJContent])
+    }, [SPOJContent, User])
 
 
     const updateCodeforces = () =>{

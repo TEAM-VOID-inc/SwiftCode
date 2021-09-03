@@ -21,13 +21,10 @@ const Blogs = () => {
       }
    }, [User, Blog])
 
-   console.log(BlogData)
-
    return (
       <div>
          <div className="blogContent">
          <div style={{display:'flex', justifyContent: 'space-between'}}>
-
             <Typography m="0px 40px 0px 0px " fs="45px" color="white" ff={font.ubuntu} display="flex" alignItems="center">Blogs </Typography>
             <Button m="10px 30px 10px 0px" bg="green"><Typography fs="20px" ff={font.ubuntu} onClick={() => history.push('/newblog')}> + New Blog </Typography></Button>
          </div>

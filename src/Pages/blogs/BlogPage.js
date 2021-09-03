@@ -40,6 +40,7 @@ function Blog() {
         if(result?.data?.data?.success === true){
           setblog(result?.data?.data?.blog)
           setstate({...result?.data?.data?.blog?.description, entityMap:{}})
+          setdescription({...result?.data?.data?.blog?.description})
           setprevstate({title: result?.data?.data?.blog?.title, description:{...result?.data?.data?.blog?.description, entityMap:{}}})
           settitle(result?.data?.data?.blog?.title)
           if(result?.data?.data?.blog?.userId === User?.data?.user?._id){
@@ -49,7 +50,7 @@ function Blog() {
         }
       });
     } 
-  }, [User, id]);
+  }, [User, id, Token]);
 
 
 
@@ -139,13 +140,11 @@ function Blog() {
 
                   Axios.post("https://api.cloudinary.com/v1_1/dmuenqv60/image/upload", data)
                   .then(async res => {
-                    console.log(res);
                     const payload = await res.data
                     imageBlock.uploadCompleted(payload.secure_url)
                   })
                   .catch(err => {
                     imageBlock.uploadFailed()
-                    console.log(err);
                   })
             }
           }

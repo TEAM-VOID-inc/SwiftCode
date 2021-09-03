@@ -22,10 +22,9 @@ function CodeChef() {
         {
             setCodeChefData(CodeforcesContent);
         }
-    }, [CodeforcesContent])
+    }, [CodeforcesContent, User])
 
     const updateCodeChef = () =>{
-        console.log("clicked");
         dispatch(updateCodeChefdata(User?.user?._id, {codechefid : codechefid}, Token));
     }
 

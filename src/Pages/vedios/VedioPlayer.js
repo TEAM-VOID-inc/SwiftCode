@@ -3,7 +3,6 @@ import ReactPlayer from 'react-player';
 import Card from '../../components/Card';
 import Typography from '../../components/Typography';
 import font from '../../utilities/font';
-// import Checkbox from '@material-ui/core/Checkbox';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { CheckPlaylist, GetPlaylistVedio, GetVedioDetail, UncheckPlaylist } from '../../redux/actions/playlist';
@@ -75,7 +74,7 @@ function VedioPlayer() {
                 }
             });
         }
-    }, [vediodata,User])
+    }, [vediodata,User, Token])
 
     const checkuncheck = (index) =>{
         if(playlistdata[index].done){
@@ -142,7 +141,6 @@ function VedioPlayer() {
         <div style={{borderBottom: '1px solid white', paddingBottom: '10px'}}>
                 <Typography m="0px 0px 0px 20px"  fs="25px" color="white" ff={font.ubuntu} fw={500}>Playlist</Typography>
         </div>
-            {console.log(playlistdata)}
             {playlistdata?.map((play, index)=> 
             <div>
             

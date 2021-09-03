@@ -65,13 +65,11 @@ function Blog() {
 
                     Axios.post("https://api.cloudinary.com/v1_1/dmuenqv60/image/upload", data)
                     .then(async res => {
-                      console.log(res);
                       const payload = await res.data
                       imageBlock.uploadCompleted(payload.secure_url)
                     })
                     .catch(err => {
                       imageBlock.uploadFailed()
-                      console.log(err);
                     })
               }
             }

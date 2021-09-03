@@ -18,14 +18,12 @@ function GfgQuestion() {
     const [GFGquestion, setGFGquestion] = useState([]);
     const dispatch = useDispatch();
 
-    console.log(id);
-
     useEffect(() => {
         if(Gfgdata?.length > 0)
         {
             setGFGquestion(Gfgdata[id]?.questionsets);
         }
-    }, [Gfgdata])
+    }, [Gfgdata, id])
 
     const updateGfg = () => {
         dispatch(updateGFGdata(User?.user?._id, {GFGid : gfgid}, Token));

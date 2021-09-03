@@ -19,10 +19,8 @@ function PlaylistVedios() {
     const dispatch = useDispatch();
 
     
-
     useEffect(() => {
         if(id){
-            console.log("clicked")
             const data = dispatch(GetPlaylistVedio(id, Token));
             data.then((result) => {
                 if(result.success === true){
@@ -42,19 +40,13 @@ function PlaylistVedios() {
                 }
             });
         }
-    }, [User])
+    }, [User, id, Token])
 
     const checkuncheck = (index) =>{
-        console.log("clicked");
-
         if(playlistdata[index].done){
-            const data = dispatch(UncheckPlaylist({userId : User?.user?._id, vedioId: playlistdata[index]._id}, Token));
-
-            data.then((result) => console.log(result))
+            dispatch(UncheckPlaylist({userId : User?.user?._id, vedioId: playlistdata[index]._id}, Token));
         }else{
-            const data = dispatch(CheckPlaylist({userId : User?.user?._id, vedioId: playlistdata[index]._id}, Token));
-            
-            data.then((result) => console.log(result))
+            dispatch(CheckPlaylist({userId : User?.user?._id, vedioId: playlistdata[index]._id}, Token));
         }
     }
 

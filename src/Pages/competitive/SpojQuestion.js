@@ -16,46 +16,29 @@ function SpojQuestion() {
     const [SpojData, setSpojData] = useState([]);
     const [spojid, setspojid] = useState(null);
     const dispatch = useDispatch();
-
     const SPOJContent = useSelector((state) => state?.spoj?.spojcontent?.data?.content);
-
     const SPOJQuestion = useSelector((state) => state?.spoj?.spojquestion?.data?.questions);
 
-    console.log(SPOJQuestion)
-
-    // useEffect(() => {
-    //     if(User?.user?.spojid)
-    //     {
-    //         setSpojData(SPOJContent);
-    //     }
-    // }, [SPOJContent])
-
-
-    
     useEffect(() => {
         if(User?.user?.spojid)
-        {   console.log(id);
+        { 
             if(id !== undefined)
             {   
                 if(SPOJContent){
                     const pageid = SPOJContent[parseInt(id)]?.contentLink
-                    const errordata = dispatch(GetSpojQuestion(User?.user?._id, pageid, Token));
-    
-                    if(errordata)
-                    {
-                        errordata.then((result) => console.log(result))
-                    }
+                    dispatch(GetSpojQuestion(User?.user?._id, pageid, Token));
                 }
             }
         }
-    }, [User, id, SPOJContent]);
+    }, [User, id, SPOJContent, Token]);
+
 
     useEffect(() => {
         if(User?.user?.spojid)
         {
             setSpojData(SPOJQuestion);
         }
-    }, [SPOJQuestion])
+    }, [SPOJQuestion, User])
 
 
     const updateCodeforces = () =>{

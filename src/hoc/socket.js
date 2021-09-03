@@ -19,7 +19,6 @@ useEffect(() =>{
 useEffect(()=>{
     return ()=>{ 
             socket.disconnect();
-            console.log("GFG data disconnect is fired off")
     }
 },[]);
 
@@ -28,8 +27,6 @@ useEffect(() => {
             setresponse(data);
         });
 });
-
-console.log(response);
 
 return (
     <div>

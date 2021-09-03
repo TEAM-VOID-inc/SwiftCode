@@ -9,9 +9,7 @@ import { useSelector } from 'react-redux';
 
 function Spoj() {
     const playlist = useSelector((state) => state?.playlist?.allPlaylist?.data?.playlists);
-
-    console.log(playlist);
-
+    
     return (
         <div>
             <div className="codeforcesContent">

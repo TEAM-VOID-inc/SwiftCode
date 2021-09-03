@@ -27,7 +27,7 @@ function Verify() {
                     history.push('/login');
                 }, 3000)
             }
-    }, [])
+    }, [id, history]);
 
     return (
             <Card h="40vh" maxw="800px" m="20vh auto" display="flex" fdir="column"  alignItems="center" justify="center">

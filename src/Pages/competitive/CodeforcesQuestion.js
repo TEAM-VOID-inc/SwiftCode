@@ -20,18 +20,13 @@ function CodeforcesQuestion() {
 
     useEffect(() => {
         if(User?.user?.codechefid)
-        {   console.log(id);
+        {   
             if(id !== undefined)
             {
-                const errordata = dispatch(GetcodeforcesQuestion(User?.user?._id, id, Token));
-
-                if(errordata)
-                {
-                    errordata.then((result) => console.log(result))
-                }
+                dispatch(GetcodeforcesQuestion(User?.user?._id, id, Token));
             }
         }
-    }, [User, id]);
+    }, [User, id, Token]);
 
 
     useEffect(() => {
@@ -39,11 +34,10 @@ function CodeforcesQuestion() {
         {
             setCodeforcesData(CodeforcesContent);
         }
-    }, [CodeforcesContent])
+    }, [CodeforcesContent, User])
 
 
     const updateCodeforces = () =>{
-        console.log("clicked");
         dispatch(updateCodeForcesdata(User?.user?._id, {Codeforcesid : codeforcesid}, Token));
     }
 

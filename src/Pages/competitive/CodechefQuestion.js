@@ -22,29 +22,23 @@ function CodeChefQuestion() {
 
     useEffect(() => {
         if(User?.user?.codechefid)
-        {   console.log(id);
+        {   
             if(id !== undefined)
             {
-                const errordata = dispatch(GetcodechefQuestion(User?.user?._id, id, Token));
-
-                if(errordata)
-                {
-                    errordata.then((result) => console.log(result))
-                }
+                dispatch(GetcodechefQuestion(User?.user?._id, id, Token));
             }
         }
-    }, [User, id]);
+    }, [User, id, Token]);
 
     useEffect(() => {
         if(User?.user?.codechefid){
             setcodechefquestion(CodeChefQuestion);
         }
-    }, [CodeChefQuestion])
+    }, [CodeChefQuestion, User])
 
 
 
     const updateCodeChef = () =>{
-        console.log("clicked");
         dispatch(updateCodeChefdata(User?.user?._id, {codechefid : codechefid}, Token));
     }
 

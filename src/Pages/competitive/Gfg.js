@@ -21,7 +21,7 @@ function Gfg() {
         if(Gfgdata?.length > 0 && User?.user?.GFGid){
             setgfgcontent(Gfgdata);
         }
-    }, [Gfgdata])
+    }, [Gfgdata, User])
 
 
     const updateGfg = () => {

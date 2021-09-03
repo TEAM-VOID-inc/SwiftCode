@@ -53,8 +53,6 @@ function Profile() {
         }
     }, [User, Blog])
 
-    console.log(userblog);
-
     const inputchange = (e,index) => {
         const list = profiledata;
         list[index].cpid = e.target.value;
