@@ -22,11 +22,17 @@ import NewBlog from '../Pages/blogs/NewBlog';
 import Blog from '../Pages/blogs/Blogs';
 import PlaylistVedios from '../Pages/vedios/PlaylistVedios'
 import Home from '../Pages/Home';
+import BlogPage from '../Pages/blogs/BlogPage';
 
 const routes = [
     { 
         path: '/home',
         component: [Navbar, Home],
+        protected: true
+    },
+    { 
+        path: '/blog/:id',
+        component: [Navbar, BlogPage],
         protected: true
     },
     { 

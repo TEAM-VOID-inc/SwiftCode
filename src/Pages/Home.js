@@ -1,7 +1,6 @@
 import React from 'react'
 import Typography from '../components/Typography';
 import Card from "../components/Card";
-import Button from "../components/Button";
 import gfg from '../assets/image/gfg.png';
 import codeforces from '../assets/image/codeforces.png';
 import spoj from '../assets/image/spoj.png';
@@ -13,13 +12,11 @@ import VedioSlider from '../pageComponents/VedioSlider';
 
 function Home() {
     const history = useHistory();
-    function changeLink(id) {
-        history.push(`/${id}`)
-    }
     return (
         <div style={{ width: '100%', maxWidth: '1300px', margin: '50px auto', padding: '1em', color: ' white' }} >
             <div style={{ textAlign: 'center', padding: '10px', borderBottom: '1px solid lightgray'}}>
                 <Typography fs="30px">Competitive Programming Practice</Typography>
+                
                 <div style={{ margin: '30px 0', minheight: "150px", height: "20vh", display: 'flex', justifyContent: 'space-between' }}>
                     <div className="cpcard" onClick={() =>history.push('/gfg') }>
                         <Card bg="#157a0c" minw="15vw" maxw="15vw" h="20vh"><img src={gfg} height="70%" alt="logoimage" />

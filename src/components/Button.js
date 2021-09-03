@@ -35,6 +35,7 @@ export default function ClassesShorthand({children, type, ...props}) {
     return <Button variant="contained" color="primary" className={props.gradient === true ? ` ${classes.custombg} ${classes.gradientborder}` : classes.custombg} 
                     onClick={props.onClick}
                     type = {props.type}
+                    name= {props.name}
             >
                 {children}
             </Button>;

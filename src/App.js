@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch} from 'react-router-dom';
 import PrivateRoute from './hoc/ProtectedRoute';
 import CustomRoute from './hoc/CustomRoute';
 import routes from './routes/routes';
@@ -9,6 +9,7 @@ import {Getcodechefcontent} from './redux/actions/codechef'
 import { Getcodeforcescontent } from './redux/actions/codeforces';
 import { GetSpojcontent } from './redux/actions/spoj';
 import { Getallplaylist } from './redux/actions/playlist';
+import { GetBlog } from './redux/actions/blog';
 
 function App() {
   const dispatch = useDispatch();
@@ -21,50 +22,32 @@ function App() {
 
   useEffect(() => {
     if(User?.user?.GFGid){
-        const errordata = dispatch(GetGfgData(User?.user?._id , Token))
-        if(errordata)
-        {
-            errordata.then((result) => console.log(result));
-        }
+        dispatch(GetGfgData(User?.user?._id , Token))
     }
 
     if(User?.user?.codechefid)
     {
-      console.log("codechefid");
-      const errordata = dispatch(Getcodechefcontent(Token))
-      if(errordata)
-      {
-          errordata.then((result) => console.log(result));
-      }
+      dispatch(Getcodechefcontent(Token))
     }
 
     if(User?.user?.Codeforcesid)
     {
-      const errordata = dispatch(Getcodeforcescontent(Token))
-      if(errordata)
-      {
-          errordata.then((result) => console.log(result));
-      }
+      dispatch(Getcodeforcescontent(Token))
     }
 
     if(User?.user?.spojid){
-      const errordata = dispatch(GetSpojcontent(Token))
-      if(errordata)
-      {
-          errordata.then((result) => console.log(result));
-      }
+      dispatch(GetSpojcontent(Token))
     }
 
     if(User){
-      const errordata = dispatch(Getallplaylist(Token))
-
-      if(errordata)
-      {
-          errordata.then((result) => console.log(result));
-      }
+      dispatch(Getallplaylist(Token))
     }
 
-  }, [User])
+    if(User){
+      dispatch(GetBlog(Token))
+    }
+
+  }, [User, Token])
 
 
   return (

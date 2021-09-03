@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../../assets/css/codeforces.css';
 import Typography from '../../components/Typography';
-import Playlistcard from '../../pageComponents/Video/Playlistcard';
 import Skeleton from '../../pageComponents/Competitve/Skeleton';
 import font from '../../utilities/font';
 import '../../assets/css/skeleton.css';

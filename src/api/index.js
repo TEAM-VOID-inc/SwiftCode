@@ -64,9 +64,11 @@ export const vediounmark = (requestbody, token) => API.post(`/user/vediounmark`,
 //blogs 
 export const addBlog = (requestbody, token) => API.post(`/blog/`, requestbody, {headers: { Authorization: `Bearer ${token}`}});
 export const getallBlog = (token) => API.get('/blog/', {headers: { Authorization: `Bearer ${token}`}});
-export const getuserBlog = (id, token) => API.get(`/blog/${id}`,{headers: { Authorization: `Bearer ${token}`}});
-export const updateblog = (id, token) => API.put(`/blog/${id}`,{headers: { Authorization: `Bearer ${token}`}});
+export const getuserBlog = (id, token) => API.get(`/blog/user/${id}`,{headers: { Authorization: `Bearer ${token}`}});
+export const updateblog = (id,requestbody, token) => API.put(`/blog/${id}`, requestbody, {headers: { Authorization: `Bearer ${token}`}});
 export const deleteblog = (id, token) => API.delete(`/blog/${id}`,{headers: { Authorization: `Bearer ${token}`}});
+export const getblogbyid = (id, token) => API.get(`/blog/${id}`,{headers: { Authorization: `Bearer ${token}`}});
+
 
 
 

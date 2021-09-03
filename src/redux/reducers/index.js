@@ -5,6 +5,7 @@ import codechef from './codechef';
 import codeforces from './codeforces';
 import spoj from './spoj';
 import playlist from './playlist';
+import blog from './blog';
 
 export default combineReducers({
     auth,
@@ -12,5 +13,6 @@ export default combineReducers({
     codechef,
     codeforces,
     spoj,
-    playlist
+    playlist,
+    blog
 });

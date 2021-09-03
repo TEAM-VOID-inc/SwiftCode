@@ -22,5 +22,6 @@ export const CodeForcesContent = 'CodeForcesContent';
 export const SpojContent= 'SpojContent';
 export const SpojQuestion = 'SpojQuestion';
 export const ALLPLAYLIST = 'ALLPLAYLIST';
+export const ALLBLOG = 'ALLBLOG';
 
 
