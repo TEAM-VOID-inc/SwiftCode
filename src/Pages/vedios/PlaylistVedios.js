@@ -29,9 +29,9 @@ function PlaylistVedios() {
                 if(result.data?.data?.success === true) {
                     const vediodone = User?.user?.vediodone;
                     const vedios = [];
-                    result.data?.data?.vedios?.map((vedio, index) => {
+                    result.data?.data?.vedios?.forEach((vedio, index) => {
                         vedios[index] = {...vedio, done : false};
-                        vediodone?.map((v, i) => {
+                        vediodone?.forEach((v, i) => {
                             if(vedio._id === v){
                                 vedios[index].done = true
                             }

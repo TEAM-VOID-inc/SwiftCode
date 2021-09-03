@@ -45,7 +45,7 @@ function Profile() {
                 {cptype: 'CodeChefid',cpid: CodeChefid  ,edit: false}
             ])
 
-            Blog?.blogs?.data?.blogs?.map((item, index) => {
+            Blog?.blogs?.data?.blogs?.forEach((item, index) => {
                 if(item?.userId === User?._id){
                     setuserblog((prev) => [...prev, item]);
                 }
