@@ -5,6 +5,7 @@ import Laptop from '../assets/animation/Laptop';
 import '../assets/css/LandingPage.css';
 import font from '../utilities/font';
 import cplogo from '../utilities/cplogo';
+import { Link } from 'react-router-dom';
 
 function LandingPage() {
     return (
@@ -27,7 +28,9 @@ function LandingPage() {
                     }
                 </div>
                 
+                <Link to ='/register'>
                 <Button m="40px" bg="black" h="8vh" w="30%" fs="25px" ff={font.encode} gradient>Register SpeedCode</Button>
+                </Link>
             </div>
 
         </div>

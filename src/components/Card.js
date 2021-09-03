@@ -19,6 +19,9 @@ const useStyles = makeStyles({
     alignItems: props.alignItems,
     justifyContent: props.justify,
     textAlign: props.textalign,
+    overflow : props.overflow,
+    overflowX: props.overflowX,
+    overflowY: props.overflowY,
 }),
 });
 
@@ -26,7 +29,7 @@ export default function ClassesShorthand({ children, type, ...props }) {
     const classes = useStyles(props);
 
     return (
-        <Card className={classes.root} variant="outlined">
+        <Card className={classes.root} variant="outlined" onClick={props.onClick}>
         {/* <CardContent> */}
             {children}
         {/* </CardContent> */}

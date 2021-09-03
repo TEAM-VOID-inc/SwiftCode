@@ -9,7 +9,7 @@ function PlaylistCard({id,title}) {
     const history = useHistory();
 
     function changeLink(id){
-        history.push(`/video/${id}`)
+        history.push(`/playlist/${id}`)
     }
 
     return (

@@ -2,7 +2,7 @@ import * as api from '../../api/index.js';
 import { LOGIN } from '../../constants/actionTypes';
 
 
-export const Register = (formData, router) => async (dispatch) => {
+export const Register = (formData) => async (dispatch) => {
     try {
         const data = await api.register(formData);
         return {data, success: true};

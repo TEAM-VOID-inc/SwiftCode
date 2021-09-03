@@ -8,6 +8,7 @@ import spoj from '../assets/image/spoj.png';
 import codechef from '../assets/image/codechef.png';
 import '../assets/css/home.css';
 import { useHistory } from 'react-router-dom';
+import VedioSlider from '../pageComponents/VedioSlider';
 
 
 function Home() {
@@ -17,8 +18,8 @@ function Home() {
     }
     return (
         <div style={{ width: '100%', maxWidth: '1300px', margin: '50px auto', padding: '1em', color: ' white' }} >
-            <div style={{ textAlign: 'center' }}>
-                <Typography fs="30px">Competative Programming Practice</Typography>
+            <div style={{ textAlign: 'center', padding: '10px', borderBottom: '1px solid lightgray'}}>
+                <Typography fs="30px">Competitive Programming Practice</Typography>
                 <div style={{ margin: '30px 0', minheight: "150px", height: "20vh", display: 'flex', justifyContent: 'space-between' }}>
                     <div className="cpcard" onClick={() =>history.push('/gfg') }>
                         <Card bg="#157a0c" minw="15vw" maxw="15vw" h="20vh"><img src={gfg} height="70%" alt="logoimage" />
@@ -44,6 +45,7 @@ function Home() {
                     </div>
                 </div>
             </div>
+            <VedioSlider />
         </div>
     )
 }

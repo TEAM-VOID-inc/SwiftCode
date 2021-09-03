@@ -7,22 +7,60 @@ import font from '../../utilities/font';
 import '../../assets/css/skeleton.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { GetPlaylistVedio } from '../../redux/actions/playlist';
+import { CheckPlaylist, GetPlaylistVedio, UncheckPlaylist } from '../../redux/actions/playlist';
+import PlaylistVedioCard from '../../pageComponents/Video/playlistVedioCard';
+
+
 
 function PlaylistVedios() {
     const {id} = useParams();
     const Token = useSelector((state) => state.auth?.token);
     const User = useSelector((state) => state.auth?.user?.data);
-    const playlist = useSelector((state) => state?.playlist?.allPlaylist?.data?.playlists);
     const [playlistdata, setplaylistdata] = useState([]);
     const dispatch = useDispatch();
 
+    
+
     useEffect(() => {
         if(id){
+            console.log("clicked")
             const data = dispatch(GetPlaylistVedio(id, Token));
-            data.then((result) => console.log(result));
+            data.then((result) => {
+                if(result.success === true){
+                if(result.data?.data?.success === true) {
+                    const vediodone = User?.user?.vediodone;
+                    const vedios = [];
+                    result.data?.data?.vedios?.map((vedio, index) => {
+                        vedios[index] = {...vedio, done : false};
+                        vediodone?.map((v, i) => {
+                            if(vedio._id === v){
+                                vedios[index].done = true
+                            }
+                        })
+                    })
+                    setplaylistdata(vedios)
+                }
+                }
+            });
         }
     }, [User])
+
+    const checkuncheck = (index) =>{
+        console.log("clicked");
+
+        if(playlistdata[index].done){
+            const data = dispatch(UncheckPlaylist({userId : User?.user?._id, vedioId: playlistdata[index]._id}, Token));
+
+            data.then((result) => console.log(result))
+        }else{
+            const data = dispatch(CheckPlaylist({userId : User?.user?._id, vedioId: playlistdata[index]._id}, Token));
+            
+            data.then((result) => console.log(result))
+        }
+    }
+
+
+
 
     return (
         <div>
@@ -33,10 +71,13 @@ function PlaylistVedios() {
             :
             <div> 
             {
-                playlist.map((item, index) =>(
-                            <Playlistcard key={index} 
+                playlistdata.map((item, index) =>(
+                            <PlaylistVedioCard key={index} 
                                 id = {item?._id}
-                                title = {item?.title}/>))
+                                title = {item?.title}
+                                checked={item?.done}
+                                handlecheck= {() => checkuncheck(index)}
+                            />))
             }
             </div>
             

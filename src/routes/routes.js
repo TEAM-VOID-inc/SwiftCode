@@ -40,7 +40,7 @@ const routes = [
         protected: true
     },
     { 
-        path: '/vedioplayer',
+        path: '/video/:id',
         component: [Navbar, VedioPlayer],
         protected: true
     },
@@ -50,7 +50,7 @@ const routes = [
         protected: true
     },
     { 
-        path: '/video/:id',
+        path: '/playlist/:id',
         component: [Navbar, PlaylistVedios],
         protected: true
     },
