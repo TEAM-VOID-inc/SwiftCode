@@ -42,7 +42,6 @@ function Blog() {
             onChange={(e) => settitle(e.target.value)}
             /> 
           </div>
-
         </div>
 
 
@@ -50,7 +49,6 @@ function Blog() {
         style={{minHeight: '70vh', width: '70%', backgroundColor: 'rgba(128, 208, 199,0.2)', margin: '10px auto', padding: '20px', color: 'white'}}
         content={state}
         body_placeholder={"Write Your New Blog"}
-  
         onChange={editor => { setdescription(editor.emitSerializedOutput()) }}
         key_commands={{ 'alt-shift': [{ key: 65, cmd: 'add-new-block' }], 'alt-cmd': [ { key: 49, cmd: 'toggle_block:header-one' }, { key: 50, cmd: 'toggle_block:header-two' }, { key: 53, cmd: 'toggle_block:blockquote' }, ], cmd: [ { key: 66, cmd: 'toggle_inline:BOLD' }, { key: 73, cmd: 'toggle_inline:ITALIC' }, { key: 75, cmd: 'insert:link' }, ], }}
         

@@ -51,7 +51,7 @@ function CodeChef() {
             :
             <div> 
             {
-                CodeChefData.map((contentName, index) =>(<Codechefcard key={index} contentName={contentName} />))
+                CodeChefData?.map((contentName, index) =>(<Codechefcard key={index} contentName={contentName} />))
             }
             </div>
             

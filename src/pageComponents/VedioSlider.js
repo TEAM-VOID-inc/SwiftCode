@@ -39,7 +39,7 @@ function VedioSlider() {
 
                 {playlist?.map((item, index) => (
                         <div style={{margin: '10px 10px 10px 10px', cursor: 'pointer'}}>
-                            <Card   bg="green" minw="15vw" maxw="15vw" h="20vh" display="flex" alignItems="center" justify="center" onClick={() =>history.push(`/playlist/${item?._id}`)} >
+                            <Card   bg="rgba(128, 208, 199,0.2)" minw="15vw" maxw="15vw" h="20vh" display="flex" alignItems="center" justify="center" onClick={() =>history.push(`/playlist/${item?._id}`)} >
                             <Typography fs="25px" fw="800" m="auto" textalign="center" >{item?.title}</Typography>
                             </Card>
                         </div>

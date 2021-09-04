@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'http://localhost:3001'})
+const API = axios.create({ baseURL: 'https://speedcodeserver.herokuapp.com'})
 
 //Registration and Login
 export const register = (requestbody) => API.post(`/auth/register`, requestbody);   
